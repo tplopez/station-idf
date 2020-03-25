@@ -17,9 +17,7 @@ function using numpy.random.choice
 from scipy.stats import genextreme as gev
 import pandas as pd
 import argparse
-
-rcParams['xtick.labelsize'] = 14
-rcParams['ytick.labelsize'] = 14
+import numpy as np
 
 
 def main(args):
@@ -48,19 +46,20 @@ def main(args):
                 fit = gev.fit(bootsams)
                 mams.append(gev.isf(x, c=fit[0], loc=fit[1], scale=fit[2]))
             bts[col] = np.asarray(mams)
-        alpha = args.alpha
+        alpha = 0.90
+
         p_lo = ((1.0-alpha)/2.0) * 100
         p_up = (alpha+((1.0-alpha)/2.0)) * 100
         for col in ams.columns:
             lower = np.apply_along_axis(np.percentile, 0, bts[col], p_lo)
             upper = np.apply_along_axis(np.percentile, 0, bts[col], p_up)
-            mean = np.apply_along_axis(np.mean, 0, bts[col])
+            median = np.apply_along_axis(
+                np.percentile, 0, bts[col], 50)
 
-            idf[col] = np.append(lower, np.append(mean, upper))
+            idf[col] = np.append(lower, np.append(median, upper))
 
-    elif:
+    elif args.ci == False:
         idf = pd.DataFrame(index=noci)
-        args.ci == False:
         for col in ams.columns:
             fit = gev.fit(ams[col])
             idf[col] = gev.isf(x, c=fit[0], loc=fit[1], scale=fit[2])
@@ -79,14 +78,12 @@ if __name__ == "__main__":
 
     parser.add_argument("--path", required=True, type=str,
                         help="Full path where the ams csv file is located. The first column of the data should be the year, and the rest columns should be each durations ' AMS")
-    parser.add_argument("--format", required=True, type=str,
-                        help="figure file format, either png or pdf")
     parser.add_argument("--ci", default=False, type=bool,
                         help="Should CI be computed?")
-    parser.add_argument("--nbootsrap", default=100, type=int,
+    parser.add_argument("--nbootstrap", default=1000, type=int,
                         help="Number of bootsrap samples to generate, default 100")
-    parser.add_argument("--alpha", default=False,
-                        help="confidence level, e.g. 0.1 or     0.01")
+    parser.add_argument("--alpha", default=0.9,
+                        help="confidence level, e.g. 0.9 or 0.99, default 0.9")
     parser.add_argument("--savepath", required=True, type=str,
                         help="Full path where to save the extracted AMS as a .csv file")
 

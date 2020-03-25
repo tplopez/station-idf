@@ -93,7 +93,6 @@ def fixed_max(k, data):
 def main(args):
 
     ftype = args.ftype
-    print(ftype)
     fpath = args.path
 
     # Hard coded durations here, but could be input from the user

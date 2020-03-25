@@ -43,8 +43,8 @@ def makeIDFplot(path, idf, savepath, figformat, CI=False):
         plt.xlabel('Average Recurrence Interval', {'fontsize': 18})
         plt.grid()
 
-        plt.savefig("{}/IDF_{}.{}".format(savepath,
-                                          path.split('/')[-1][:-4], figformat), bbox_inches='tight')
+        plt.savefig("{}/F_{}.{}".format(savepath,
+                                        path.split('/')[-1][:-4], figformat), bbox_inches='tight')
 
     elif CI == True:
         dfmean = idf.drop([x for x in idf.columns if (
@@ -56,26 +56,33 @@ def makeIDFplot(path, idf, savepath, figformat, CI=False):
 
         # Hard coded this durations and return periods, could change to user input
 
-        plt.xticks(np.arange(1, 9), ('1H', '2H', '3H',
+        plt.xticks(np.arange(0, 8), ('1H', '2H', '3H',
                                      '6H', '12H', '24H', '48H', '72H'))
-        plt.fill_between(idf.index, idf['L2-yr'],
-                         idf['U2-yr'], alpha=fill_alpha)
-        plt.fill_between(idf.index, idf['L5-yr'],
-                         idf['U5-yr'], alpha=fill_alpha)
-        plt.fill_between(idf.index, idf['L10-yr'],
-                         idf['U10-yr'], alpha=fill_alpha)
-        plt.fill_between(idf.index, idf['L25-yr'],
-                         idf['U25-yr'], alpha=fill_alpha)
+
+        plt.fill_between(np.arange(0, 8), idf['L2-yr'].values,
+                         idf['U2-yr'].values, alpha=fill_alpha)
+        plt.fill_between(np.arange(0, 8), idf['L5-yr'].values,
+                         idf['U5-yr'].values, alpha=fill_alpha)
+        plt.fill_between(np.arange(0, 8), idf['L10-yr'].values,
+                         idf['U10-yr'].values, alpha=fill_alpha)
+        # plt.fill_between(np.arange(0, 8), idf['L25-yr'].values,
+        #                  idf['U25-yr'].values, alpha=fill_alpha)
+        # plt.fill_between(np.arange(0, 8), idf['L50-yr'].values,
+        #                  idf['U50-yr'].values, alpha=fill_alpha)
+        # plt.fill_between(np.arange(0, 8), idf['L100-yr'].values,
+        #                  idf['U100-yr'].values, alpha=fill_alpha)
+
+        # plt.fill_between(np.arange(0, 8), idf['L{}'.format(col)].values,
+        #                  idf['U{}'.format(col)].values, alpha=fill_alpha)
 
         legend = plt.legend(bbox_to_anchor=(1, 0.75),
                             title='Duration', fontsize=13)
         plt.setp(legend.get_title(), fontsize=15)
-        plt.title('DDF Curve for USC00360821', fontsize=22, )
         plt.ylabel('Precipitation Depth (in)', {'fontsize': 18})
         plt.xlabel('Duration', {'fontsize': 18})
         plt.grid()
-        plt.savefig("{}/IDF_{}.{}".format(savepath,
-                                          path.split('/')[-1][:-4], figformat), bbox_inches='tight')
+        plt.savefig("{}/F_{}.{}".format(savepath,
+                                        path.split('/')[-1][:-4], figformat), bbox_inches='tight')
 
 
 def main(args):
@@ -92,7 +99,8 @@ def main(args):
     idf = pd.read_csv(args.path, index_col=0)
     dfmean = idf.drop([x for x in idf.columns if (
         x[:1] == 'L' or x[:1] == 'U')], axis=1)
-    makeIDFplot(args.path, idf, args.savepath, args.format, args.includeCI)
+    makeIDFplot(args.path, idf.transpose(), args.savepath,
+                args.format, args.includeCI)
 
 
 if __name__ == "__main__":
