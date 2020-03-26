@@ -203,7 +203,7 @@ class IDF:
                 self.idf[col] = gev.isf(self.quantiles, c=fit[0],
                                         loc=fit[1], scale=fit[2])
 
-    def plot_IDF(self, path, figformat, savepath):
+    def plot_IDF(self, savepath, figformat):
 
         # Hard coded params
         rcParams['xtick.labelsize'] = 14
@@ -245,5 +245,5 @@ class IDF:
             plt.xlabel('Average Recurrence Interval', {'fontsize': 18})
             plt.grid()
 
-        plt.savefig("{}/Figure_{}.{}".format(savepath,
-                                             path.split('/')[-1][:-4], figformat), bbox_inches='tight')
+        plt.savefig("{}/Figure.{}".format(savepath,
+                                          figformat), bbox_inches='tight')

@@ -18,38 +18,37 @@ def main(args):
     out = ts.calculate_AMS(args.ftype)
 
     if args.saveAMS == True:
-        out.to_csv("{}/AMS_{}".format(args.savepath, fpath.split('/')[-1]))
+        out.to_csv("{}/AMS.csv".format(args.savepath)]))
 
-    data = IDF(out, args.ci, args.number_bootstrap, args.alpha)
+    data=IDF(out, args.ci, args.number_bootstrap, args.alpha)
     data.construct_IDF()
 
-    data.idf.to_csv("{}/IDF_{}".format(args.savepath,
-                                       args.path.split('/')[-1]))
+    data.idf.to_csv("{}/IDF.csv".format(args.savepath))
 
-    data.plot_IDF(args.path, args.figformat, args.savepath)
+    data.plot_IDF(args.figformat, args.savepath)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
+    parser=argparse.ArgumentParser(
         "Extract the annual maximum precipitation (AMS) from a precipitation time series")
 
-    parser.add_argument("--path", required=True, type=str,
-                        help="Full path where the .csv file of hourly rainfall records is located.")
-    parser.add_argument("--saveAMS", default=True, type=bool,
-                        help="Option to save the AMS")
-    parser.add_argument("--ftype", required=True, type=str,
-                        help="Type of approach. There are only two options: 'sliding' or 'fixed'")
-    parser.add_argument("--ci", default=False, type=bool,
-                        help="Should CI be computed?")
-    parser.add_argument("--number_bootstrap", default=100, type=int,
-                        help="Number of bootstrap samples to generate, default 100")
-    parser.add_argument("--alpha", default=0.9, type=float,
-                        help="confidence level, e.g. 0.9 or 0.99, default 0.9")
-    parser.add_argument("--savepath", required=True, type=str,
-                        help="Full path where to save all outputs")
-    parser.add_argument("--figformat", required=True, type=str,
-                        help="figure file format, either png or pdf")
+    parser.add_argument("--path", required = True, type = str,
+                        help = "Full path where the .csv file of hourly rainfall records is located.")
+    parser.add_argument("--saveAMS", default = True, type = bool,
+                        help = "Option to save the AMS")
+    parser.add_argument("--ftype", required = True, type = str,
+                        help = "Type of approach. There are only two options: 'sliding' or 'fixed'")
+    parser.add_argument("--ci", default = False, type = bool,
+                        help = "Should CI be computed?")
+    parser.add_argument("--number_bootstrap", default = 100, type = int,
+                        help = "Number of bootstrap samples to generate, default 100")
+    parser.add_argument("--alpha", default = 0.9, type = float,
+                        help = "confidence level, e.g. 0.9 or 0.99, default 0.9")
+    parser.add_argument("--savepath", required = True, type = str,
+                        help = "Full path where to save all outputs")
+    parser.add_argument("--figformat", required = True, type = str,
+                        help = "figure file format, either png or pdf")
 
-    args = parser.parse_args()
+    args=parser.parse_args()
 
     main(args)
