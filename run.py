@@ -26,7 +26,7 @@ def main(args):
     data.idf.to_csv("{}/IDF_{}".format(args.savepath,
                                        args.path.split('/')[-1]))
 
-    data.plot_IDF(args.path, args.format, args.savepath)
+    data.plot_IDF(args.path, args.figformat, args.savepath)
 
 
 if __name__ == "__main__":
@@ -42,12 +42,12 @@ if __name__ == "__main__":
     parser.add_argument("--ci", default=False, type=bool,
                         help="Should CI be computed?")
     parser.add_argument("--number_bootstrap", default=100, type=int,
-                        help="Number of bootsrap samples to generate, default 100")
-    parser.add_argument("--alpha", default=0.9,
+                        help="Number of bootstrap samples to generate, default 100")
+    parser.add_argument("--alpha", default=0.9, type=float,
                         help="confidence level, e.g. 0.9 or 0.99, default 0.9")
     parser.add_argument("--savepath", required=True, type=str,
                         help="Full path where to save all outputs")
-    parser.add_argument("--format", required=True, type=str,
+    parser.add_argument("--figformat", required=True, type=str,
                         help="figure file format, either png or pdf")
 
     args = parser.parse_args()
