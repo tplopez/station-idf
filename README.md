@@ -1,4 +1,5 @@
-# Construct Historical IDF Curves
+# Historical IDF Curves Generator
+
 Collection of Python scripts to construct historical [IDF curves](https://en.wikipedia.org/wiki/Intensity-duration-frequency_curve) from hourly station data.
 
 ## Dependencies
@@ -7,6 +8,7 @@ pandas >= 0.20.3
 scipy >= 0.19.1
 matplotlib >= 2.1.0
 ```
+
 ## Required input
 
 - Hourly time series. Format should be `csv`, one column being the date of observation,
