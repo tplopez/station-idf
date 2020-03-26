@@ -7,9 +7,6 @@ pandas >= 0.20.3
 scipy >= 0.19.1
 matplotlib >= 2.1.0
 ```
-
-You can run the scrip `run.py` to use all capabilities of the collection.
-
 ## Required input
 
 - Hourly time series. Format should be `csv`, one column being the date of observation,
@@ -24,7 +21,8 @@ where the hourly time series csv file is located.
 
 ## Example:
 
-After cloning this repository, in your terminal run:
+After cloning this repository, in your terminal run as follows to extract AMS, compute rainfall depths and
+plot IDF curves:
 
 ```sh
 python run.py \
@@ -33,15 +31,15 @@ python run.py \
     --figformat=png
 ```
 
-where `/Users/tanialopez/USC00360821.csv` is the path to the [COOP station id USC00360821](https://www.ncdc.noaa.gov/homr/#ncdcstnid=20016672&tab=MSHR) hourly time series (previously obtained and cleaned from the National Oceanic and Atmospheric Administration National Centers for Environmental Information[here](https://www.ncei.noaa.gov/data/coop-hourly-precipitation/v2/)), `/Users/tanialopez/resultsIDF` is the location of a directory where to store all output, and `png` is the desired format of the figure with the IDF curves.
+where `/Users/tanialopez/USC00360821.csv` is the path to the [COOP station id USC00360821](https://www.ncdc.noaa.gov/homr/#ncdcstnid=20016672&tab=MSHR) hourly time series (previously obtained and cleaned from the National Oceanic and Atmospheric Administration National Centers for Environmental Information accessed [here](https://www.ncei.noaa.gov/data/coop-hourly-precipitation/v2/)), `/Users/tanialopez/resultsIDF` is the location of a directory where to store all output, and `png` is the desired format of the figure with the IDF curves.
 
 Other options are:
 
-- saveAMS, bool. Option to save AMS. *Default value: True*
-- ftype, str. Approach to construct AMS, either 'sliding' or 'fixed'.
-- ci, bool. Option to compute confidence intervals.
-- number_bootstarp, int. Number of bootstrap samples to generate. *Default value: True:
-- alpha, float. Confidence level, e.g. 0.9 *Default value: 0.9*
+- `saveAMS` (bool): Option to save AMS. *Default value: True*
+- `ftype` (str): Approach to construct AMS, either `sliding` or `fixed`.
+- `ci` (bool): Option to compute confidence intervals.
+- `number_bootstrap` (int): Number of bootstrap samples to generate. *Default value: True*
+- `alpha` (float): Confidence level, e.g. 0.9 *Default value: 0.9*
 
 
 Example output:
