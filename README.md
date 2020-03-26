@@ -21,7 +21,7 @@ where the hourly time series csv file is located.
 - Rainfall depth for each duration above and average recurrence intervals 2-, 5-, 10-, 25-, 50-, 100- and 200-year with confidence intervals. By default confidence intervals are computed at the 90% confidence level using 1000 bootsrapped samples of the AMS.
 
 
-## Example:
+## Example
 
 After cloning this repository, in your terminal run as follows to extract AMS, compute rainfall depths and
 plot IDF curves:
