@@ -95,7 +95,7 @@ class AMS:
             annual_maximum: float, annual maximum of the group (year).
         """
         tp = grouped_data.values
-        period = 24 * 365
+        period = 365
         agg_values = []
         start_j = 1
         end_j = duration * int(np.floor(period / duration))
